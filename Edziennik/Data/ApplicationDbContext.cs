@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Edziennik.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Edziennik.Data
@@ -9,5 +10,6 @@ namespace Edziennik.Data
         {
 
         }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
