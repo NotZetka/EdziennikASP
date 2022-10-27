@@ -22,6 +22,95 @@ namespace Edziennik.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Edziennik.Data.Models.Behaviour", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Behaviours", (string)null);
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Lesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SchoolClassId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolClassId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Lessons", (string)null);
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Mark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Marks", (string)null);
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.SchoolClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SchoolClasses", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -173,12 +262,10 @@ namespace Edziennik.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -215,12 +302,10 @@ namespace Edziennik.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -236,13 +321,65 @@ namespace Edziennik.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("SecondName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Student", b =>
+                {
+                    b.HasBaseType("Edziennik.Data.Models.ApplicationUser");
+
+                    b.Property<int?>("SchoolClassId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("SchoolClassId");
+
+                    b.HasDiscriminator().HasValue("Student");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Teacher", b =>
+                {
+                    b.HasBaseType("Edziennik.Data.Models.ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("Teacher");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Behaviour", b =>
+                {
+                    b.HasOne("Edziennik.Data.Models.Student", null)
+                        .WithMany("BehaviourPoints")
+                        .HasForeignKey("StudentId");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Lesson", b =>
+                {
+                    b.HasOne("Edziennik.Data.Models.SchoolClass", "SchoolClass")
+                        .WithMany()
+                        .HasForeignKey("SchoolClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Edziennik.Data.Models.Teacher", "Teacher")
+                        .WithMany("Lessons")
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("SchoolClass");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Mark", b =>
+                {
+                    b.HasOne("Edziennik.Data.Models.Student", null)
+                        .WithMany("Marks")
+                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -294,6 +431,30 @@ namespace Edziennik.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Student", b =>
+                {
+                    b.HasOne("Edziennik.Data.Models.SchoolClass", null)
+                        .WithMany("Students")
+                        .HasForeignKey("SchoolClassId");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.SchoolClass", b =>
+                {
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Student", b =>
+                {
+                    b.Navigation("BehaviourPoints");
+
+                    b.Navigation("Marks");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Teacher", b =>
+                {
+                    b.Navigation("Lessons");
                 });
 #pragma warning restore 612, 618
         }

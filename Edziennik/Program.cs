@@ -43,5 +43,10 @@ using(var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<Seeder>();
     seeder.seedRoles();
+    seeder.seedClasses();
+    seeder.seedUsers();
+    seeder.seedStudentsClasses();
+    seeder.seedSchool();
+    seeder.seedLessons();
 }
 app.Run();
