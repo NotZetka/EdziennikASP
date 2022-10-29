@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace Edziennik.Controllers
 {
+    [Area("Shared")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
