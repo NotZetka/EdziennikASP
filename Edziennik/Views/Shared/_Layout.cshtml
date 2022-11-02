@@ -34,12 +34,7 @@
                             <a class="nav-link text-dark" asp-area="Teacher" asp-controller="Home" asp-action="Plan">Teacher's Plan</a>
                             </li>
                         }
-                        @if (User.IsInRole(SD.Role_Student))
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Student" asp-controller="Home" asp-action="Plan">Student's Plan</a>
-                            </li>
-                        }else if (User.IsInRole(SD.Role_Teacher))
+                        @if (User.IsInRole(SD.Role_Teacher))
                         {
                             <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Teacher" asp-controller="Home" asp-action="Students">Students</a>

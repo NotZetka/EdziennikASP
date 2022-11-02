@@ -36,7 +36,7 @@ namespace Edziennik.Areas.Teacher.Controllers
             var classList = new ClassesListModel();
             foreach (var schoolClass in schoolClasses)
             {
-                classList.
+                //classList.Students.Add
             }
             return View(schoolClasses);
         }

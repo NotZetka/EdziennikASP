@@ -43,14 +43,17 @@ namespace Edziennik.Data
         }
         public void seedUsers()
         {
-            if (dbContext.Users.ToList().Count != 0)
+            if (dbContext.Users.ToList().Count == 0)
             {
+                var class1A = dbContext.SchoolClasses.Where(x => x.Name == "1A").FirstOrDefault();
+                var class2A = dbContext.SchoolClasses.Where(x => x.Name == "2A").FirstOrDefault();
                 userManager.CreateAsync(new Student
                 {
                     UserName = "JanKowaslki@Student.pl",
                     Email = "JanKowaslki@Student.pl",
                     FirstName = "Jan",
                     SecondName = "Kowalski",
+                    SchoolClass = class1A,
                 }, "Test123.").GetAwaiter().GetResult();
                 userManager.CreateAsync(new Student
                 {
@@ -58,6 +61,7 @@ namespace Edziennik.Data
                     Email = "PiotrNowak@Student.pl",
                     FirstName = "Piotr",
                     SecondName = "Nowak",
+                    SchoolClass=class1A,
                 }, "Test123.").GetAwaiter().GetResult();
                 userManager.CreateAsync(new Student
                 {
@@ -65,6 +69,7 @@ namespace Edziennik.Data
                     Email = "BartoszLewandowski@Student.pl",
                     FirstName = "Bartosz",
                     SecondName = "Lewandowski",
+                    SchoolClass=class2A,
                 }, "Test123.").GetAwaiter().GetResult();
                 userManager.CreateAsync(new Student
                 {
@@ -72,6 +77,7 @@ namespace Edziennik.Data
                     Email = "MichalNowak@Student.pl",
                     FirstName = "Michal",
                     SecondName = "Nowak",
+                    SchoolClass = class2A,
                 }, "Test123.").GetAwaiter().GetResult();
                 userManager.CreateAsync(new Teacher
                 {
@@ -96,27 +102,27 @@ namespace Edziennik.Data
                 }, "Test123.").GetAwaiter().GetResult();
             }
         }
-        public void seedStudentsClasses()
-        {
+        //public void seedStudentsClasses()
+        //{
 
-            var class1A = dbContext.SchoolClasses.Where(x => x.Name == "1A").FirstOrDefault();
-            var class2A = dbContext.SchoolClasses.Where(x => x.Name == "2A").FirstOrDefault();
+        //    var class1A = dbContext.SchoolClasses.Where(x => x.Name == "1A").FirstOrDefault();
+        //    var class2A = dbContext.SchoolClasses.Where(x => x.Name == "2A").FirstOrDefault();
 
-            if(class1A.Students.Count() == 0)
-            {
-                var student1 = dbContext.Students.Where(x => x.Email == "JanKowaslki@Student.pl").FirstOrDefault();
-                var student2 = dbContext.Students.Where(x => x.Email == "PiotrNowak@Student.pl").FirstOrDefault();
-                var student3 = dbContext.Students.Where(x => x.Email == "BartoszLewandowski@Student.pl").FirstOrDefault();
-                var student4 = dbContext.Students.Where(x => x.Email == "MichalNowak@Student.pl").FirstOrDefault();
+        //    if(class1A.Students.Count() == 0)
+        //    {
+        //        var student1 = dbContext.Students.Where(x => x.Email == "JanKowaslki@Student.pl").FirstOrDefault();
+        //        var student2 = dbContext.Students.Where(x => x.Email == "PiotrNowak@Student.pl").FirstOrDefault();
+        //        var student3 = dbContext.Students.Where(x => x.Email == "BartoszLewandowski@Student.pl").FirstOrDefault();
+        //        var student4 = dbContext.Students.Where(x => x.Email == "MichalNowak@Student.pl").FirstOrDefault();
 
-                class1A.Students.Add(student1);
-                class1A.Students.Add(student2);
-                class2A.Students.Add(student3);
-                class2A.Students.Add(student4);
-                dbContext.SaveChanges();
-            }
+        //        class1A.Students.Add(student1);
+        //        class1A.Students.Add(student2);
+        //        class2A.Students.Add(student3);
+        //        class2A.Students.Add(student4);
+        //        dbContext.SaveChanges();
+        //    }
 
-        }
+        //}
         public void seedSchool()
         {
             var student1 = dbContext.Students.Where(x => x.Email == "JanKowaslki@Student.pl").FirstOrDefault();
