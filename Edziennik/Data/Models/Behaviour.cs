@@ -8,5 +8,7 @@ namespace Edziennik.Data.Models
         public int Id { get; set; }
         [Range(-100,100)]
         public int Value { get; set; }
+        [MaxLength(200)]
+        public string Comment { get; set; }
     }
 }

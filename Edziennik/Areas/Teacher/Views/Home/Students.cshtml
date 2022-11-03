@@ -1,29 +1,23 @@
-﻿@using Edziennik.Data.Models
-@*@model IEnumerable<SelectListItem>
+﻿<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Students List</h2>
+		</div>
+	</div>
+    <br /><br />
 
-            <div class="form-floating py-2 col-6">
-                <select  asp-items="@Model" class=form-select>
-                    <option disabled selected>-Select Class-</option>
-                </select>
-            </div>
-                <select asp-for="Input.CompanyId" style="display:none;" asp-items="@Model.Input.CompanyList" class=form-select>
-                    <option disabled selected>-Select Company-</option>
-                </select>*@
+<table  id="students"  class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Class</th>
+            <th></th>
+		</tr>
+	</thead>
+</table>
+</div>
 
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        $(document).ready(function(){
-            $('#Input_Role').change(function(){
-                var selection= $('#Input_Role Option:Selected').text();
-                if(selection!='Company'){
-                    $('#Input_CompanyId').hide();
-                }
-                else{
-                    $('#Input_CompanyId').show();
-                }
-            })
-        })
-    </script>
+@section Scripts{
+    <script src="~/js/students.js"></script>
 }
