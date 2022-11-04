@@ -1,6 +1,7 @@
 ﻿using Edziennik.Data;
 using Edziennik.Utility;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Edziennik.Areas.Student.Controllers
 {
@@ -16,7 +17,7 @@ namespace Edziennik.Areas.Student.Controllers
         public IActionResult Grades()
         {
             var claim = SharedFunctions.getClaim(User);
-            var student =  dbContext.Students.FirstOrDefault(x=>x.Id==claim.Value);
+            var student =  dbContext.Students.Include(x=>x.Marks).FirstOrDefault(x=>x.Id==claim.Value);
             ViewBag.Subjects = dbContext.Subjects.ToList();
 
             return View(student);

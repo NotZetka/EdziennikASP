@@ -10,11 +10,6 @@
         <div class="col-6">
             <h2 class="text-primary">Behaviour grades</h2>
         </div>
-        <div class="col-6 text-end">
-            <a asp-controller="Home" asp-action="AddBehaviourGrade" asp-route-id=@Model.Id class="btn btn-primary">
-                Add behaviour grade
-            </a>
-        </div>
     </div>
     <table class="table table-bordered table-striped" style="width:100%">
         <thead>
@@ -48,11 +43,6 @@
         <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">@subject.Name grades</h2>
-        </div>
-        <div class="col-6 text-end">
-            <a asp-controller="Home" asp-action="AddMark" asp-route-id=@Model.Id asp-route-subjectName=@subject.Name class="btn btn-primary">
-                Add @subject.Name grade
-            </a>
         </div>
     </div>
     <table class="table table-bordered table-striped" style="width:100%">
