@@ -44,10 +44,10 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<Seeder>();
+    seeder.seedSubjects();
     seeder.seedRoles();
     seeder.seedClasses();
     seeder.seedUsers();
-    //seeder.seedStudentsClasses();
     seeder.seedSchool();
     seeder.seedLessons();
 }

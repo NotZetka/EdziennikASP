@@ -13,6 +13,14 @@ namespace Edziennik.Areas.Student.Controllers
         {
             this.dbContext = dbContext;
         }
+        public IActionResult Grades()
+        {
+            var claim = SharedFunctions.getClaim(User);
+            var student =  dbContext.Students.FirstOrDefault(x=>x.Id==claim.Value);
+            ViewBag.Subjects = dbContext.Subjects.ToList();
+
+            return View(student);
+        }
         public IActionResult Plan()
         {
             var claim = SharedFunctions.getClaim(User);

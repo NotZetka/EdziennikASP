@@ -1,0 +1,26 @@
+﻿
+@using Edziennik.Data.Models
+@model Mark
+<form asp-action="AddMark" method="post" enctype="multipart/form-data">
+            <input asp-for="StudentId" hidden />
+            <input asp-for="Subject.Id" hidden />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject.Name" class="control-label"></label>
+                <input asp-for="Subject.Name" readonly class="form-control"/>
+            </div>
+            <br />
+            <div class="w-75 btn-group" role="group">
+                <div class="form-group">
+                    <button class="btn-primary btn" type="submit">Submit</button>
+                </div>
+                <div>
+                    <a asp-action="Students" class="btn btn-danger mx-2">Back to List</a>
+                </div>
+            </div>
+        </form>

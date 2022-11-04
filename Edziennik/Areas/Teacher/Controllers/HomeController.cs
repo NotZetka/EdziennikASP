@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Edziennik.Utility;
 using Microsoft.EntityFrameworkCore;
+using Edziennik.Areas.Teacher.Models;
+using Edziennik.Data.Models;
 
 namespace Edziennik.Areas.Teacher.Controllers
 {
@@ -28,10 +30,48 @@ namespace Edziennik.Areas.Teacher.Controllers
         }
         public IActionResult Student(string id)
         {
-            var student = dbContext.Students.FirstOrDefault(x => x.Id == id);
-            return View();
+            ViewBag.Subjects = dbContext.Subjects.ToList();
+            var student = dbContext.Students.Include(x=>x.Marks).Include(x=>x.BehaviourPoints).FirstOrDefault(x => x.Id == id);
+            return View(student);
         }
-
+        public IActionResult AddBehaviourGrade(string id)
+        {
+            var grade = new Behaviour(){ StudentId = id};
+            return View(grade);
+        }
+        [HttpPost]
+        public IActionResult AddBehaviourGrade(Behaviour grade)
+        {
+            ModelState.Remove("id");
+            if (ModelState.IsValid)
+            {
+                var student = dbContext.Students.FirstOrDefault(x => x.Id == grade.StudentId);
+                
+                student.BehaviourPoints.Add(grade);
+                dbContext.SaveChanges();
+                return RedirectToAction("Student", new {id=grade.StudentId});
+            }
+            return View(grade);
+        }
+        public IActionResult AddMark(string id, string subjectName)
+        {
+            var subject = dbContext.Subjects.FirstOrDefault(x => x.Name == subjectName);
+            var mark = new Mark() { Subject = subject, SubjectId = subject.Id, StudentId = id};
+            return View(mark);
+        }
+        [HttpPost]
+        public IActionResult AddMark(Mark mark)
+        {
+            ModelState.Remove("id");
+            if (ModelState.IsValid)
+            {
+                var student = dbContext.Students.FirstOrDefault(x => x.Id == mark.StudentId);
+                student.Marks.Add(mark);
+                dbContext.SaveChanges();
+                return RedirectToAction("Student", new { id = mark.StudentId });
+            }
+            return View(mark);
+        }
         #region API CALLS
         public IActionResult GetStudents()
         {

@@ -1,0 +1,78 @@
+﻿@using Edziennik.Data.Models
+@using Edziennik.Utility
+@model Student
+@{
+    List<Subject> subjects = ViewBag.Subjects;
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Behaviour grades</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Home" asp-action="AddBehaviourGrade" asp-route-id=@Model.Id class="btn btn-primary">
+                Add behaviour grade
+            </a>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Points
+                </th>
+                <th>
+                    Comment
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var behavoiur in Model.BehaviourPoints)
+            {
+                <tr>
+                    <td width=20%>
+                        @behavoiur.Value
+                    </td>
+                    <td>
+                        @behavoiur.Comment
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @foreach(var subject in subjects)
+    {
+        var marks = Model.Marks.Where(x => x.SubjectId == subject.Id);
+        <br />
+        <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">@subject.Name grades</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Home" asp-action="AddMark" asp-route-id=@Model.Id asp-route-subjectName=@subject.Name class="btn btn-primary">
+                Add @subject.Name grade
+            </a>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Mark
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mark in marks)
+            {
+                <tr>
+                    <td>
+                        @mark.Value
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+</div>

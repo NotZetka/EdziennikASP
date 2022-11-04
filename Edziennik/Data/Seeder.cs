@@ -41,6 +41,24 @@ namespace Edziennik.Data
                 dbContext.SaveChanges();
             }
         }
+
+        public void seedSubjects()
+        {
+            if (dbContext.Subjects.ToList().Count() == 0)
+            {
+                List<Subject> subjects = new()
+                {
+                    new Subject() { Name = SD.Subjest_CS},
+                    new Subject() { Name = SD.Subject_Maths},
+                    new Subject() { Name = SD.Subjest_PE},
+                    new Subject() { Name = SD.Subjest_Psyhics},
+                    new Subject() { Name = SD.Subject_Polish},
+                };
+                dbContext.Subjects.AddRange(subjects);
+                dbContext.SaveChanges();
+            }
+        }
+
         public void seedUsers()
         {
             if (dbContext.Users.ToList().Count == 0)
@@ -102,27 +120,6 @@ namespace Edziennik.Data
                 }, "Test123.").GetAwaiter().GetResult();
             }
         }
-        //public void seedStudentsClasses()
-        //{
-
-        //    var class1A = dbContext.SchoolClasses.Where(x => x.Name == "1A").FirstOrDefault();
-        //    var class2A = dbContext.SchoolClasses.Where(x => x.Name == "2A").FirstOrDefault();
-
-        //    if(class1A.Students.Count() == 0)
-        //    {
-        //        var student1 = dbContext.Students.Where(x => x.Email == "JanKowaslki@Student.pl").FirstOrDefault();
-        //        var student2 = dbContext.Students.Where(x => x.Email == "PiotrNowak@Student.pl").FirstOrDefault();
-        //        var student3 = dbContext.Students.Where(x => x.Email == "BartoszLewandowski@Student.pl").FirstOrDefault();
-        //        var student4 = dbContext.Students.Where(x => x.Email == "MichalNowak@Student.pl").FirstOrDefault();
-
-        //        class1A.Students.Add(student1);
-        //        class1A.Students.Add(student2);
-        //        class2A.Students.Add(student3);
-        //        class2A.Students.Add(student4);
-        //        dbContext.SaveChanges();
-        //    }
-
-        //}
         public void seedSchool()
         {
             var student1 = dbContext.Students.Where(x => x.Email == "JanKowaslki@Student.pl").FirstOrDefault();

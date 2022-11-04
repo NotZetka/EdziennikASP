@@ -36,6 +36,7 @@ namespace Edziennik.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("StudentId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Value")
@@ -87,7 +88,11 @@ namespace Edziennik.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("StudentId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Value")
                         .HasColumnType("int");
@@ -95,6 +100,8 @@ namespace Edziennik.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Marks");
                 });
@@ -114,6 +121,23 @@ namespace Edziennik.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SchoolClasses");
+                });
+
+            modelBuilder.Entity("Edziennik.Data.Models.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -358,9 +382,13 @@ namespace Edziennik.Migrations
 
             modelBuilder.Entity("Edziennik.Data.Models.Behaviour", b =>
                 {
-                    b.HasOne("Edziennik.Data.Models.Student", null)
+                    b.HasOne("Edziennik.Data.Models.Student", "Student")
                         .WithMany("BehaviourPoints")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Edziennik.Data.Models.Lesson", b =>
@@ -382,9 +410,21 @@ namespace Edziennik.Migrations
 
             modelBuilder.Entity("Edziennik.Data.Models.Mark", b =>
                 {
-                    b.HasOne("Edziennik.Data.Models.Student", null)
+                    b.HasOne("Edziennik.Data.Models.Student", "Student")
                         .WithMany("Marks")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Edziennik.Data.Models.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

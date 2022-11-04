@@ -6,11 +6,11 @@
         public const string Role_Teacher = "TEACHER";
         public const string Role_Student = "STUDENT";
 
-        public const string Subject_Polish = "Polski";
-        public const string Subject_Maths = "Matematyka";
-        public const string Subjest_PE = "Wf";
-        public const string Subjest_Psyhics = "Fizyka";
-        public const string Subjest_CS = "Informatyka";
+        public const string Subject_Polish = "Polish";
+        public const string Subject_Maths = "Math";
+        public const string Subjest_PE = "Pe";
+        public const string Subjest_Psyhics = "Psyhics";
+        public const string Subjest_CS = "Computer Science";
 
     }
 }

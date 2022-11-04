@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace Edziennik.Data.Models
@@ -10,5 +11,8 @@ namespace Edziennik.Data.Models
         public int Value { get; set; }
         [MaxLength(200)]
         public string Comment { get; set; }
+        public string StudentId { get; set; }
+        [ValidateNever]
+        public Student? Student { get; set; }
     }
 }
