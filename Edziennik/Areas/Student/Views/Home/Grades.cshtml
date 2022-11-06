@@ -38,7 +38,16 @@
     </table>
     @foreach(var subject in subjects)
     {
-        var marks = Model.Marks.Where(x => x.SubjectId == subject.Id);
+        var marks = Model.Marks.Where(x => x.SubjectId == subject.Id).ToList();
+        double avg;
+        if(marks.Count!=0)
+        {
+            avg = marks.Average(x=>x.Value);
+        }
+        else
+        {
+            avg = 0.0;
+        }
         <br />
         <div class="row pt-4">
         <div class="col-6">
@@ -49,7 +58,10 @@
         <thead>
             <tr>
                 <th>
-                    Mark
+                    <div class="row">
+                        <div class="col-6">Mark</div>
+                        <div class = "text-end col-6">Avg: @avg.ToString()</div>
+                    </div>
                 </th>
             </tr>
         </thead>

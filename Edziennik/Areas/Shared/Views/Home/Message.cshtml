@@ -1,0 +1,8 @@
+﻿@using Edziennik.Data.Models
+@model Message
+
+<h2 class="text-primary">From: @Model.Author.FirstName @Model.Author.SecondName</h2>
+<h2 class="text-primary">Email: @Model.Author.Email</h2>
+<br />
+@Model.Content
+

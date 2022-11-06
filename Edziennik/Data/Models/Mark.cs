@@ -6,7 +6,7 @@ namespace Edziennik.Data.Models
     public class Mark
     {
         public int Id { get; set; }
-        [Range(1,6)]
+        [Range(1, 6)]
         public int Value { get; set; }
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }

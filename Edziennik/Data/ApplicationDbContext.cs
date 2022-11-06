@@ -21,6 +21,7 @@ namespace Edziennik.Data
         public DbSet<Behaviour> Behaviours { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Mark> Marks { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<SchoolClass> SchoolClasses { get; set; }
 

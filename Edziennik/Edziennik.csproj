@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Student\Data\**" />
+    <Compile Remove="Areas\Student\Models\**" />
+    <Content Remove="Areas\Student\Data\**" />
+    <Content Remove="Areas\Student\Models\**" />
+    <EmbeddedResource Remove="Areas\Student\Data\**" />
+    <EmbeddedResource Remove="Areas\Student\Models\**" />
+    <None Remove="Areas\Student\Data\**" />
+    <None Remove="Areas\Student\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
@@ -18,11 +29,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Student\Data\" />
-    <Folder Include="Areas\Student\Models\" />
   </ItemGroup>
 
 </Project>

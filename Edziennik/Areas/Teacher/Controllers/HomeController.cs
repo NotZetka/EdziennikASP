@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Edziennik.Utility;
 using Microsoft.EntityFrameworkCore;
-using Edziennik.Areas.Teacher.Models;
 using Edziennik.Data.Models;
 
 namespace Edziennik.Areas.Teacher.Controllers

@@ -6,6 +6,8 @@
         public const string Role_Teacher = "TEACHER";
         public const string Role_Student = "STUDENT";
 
+        public const string Messages = "Messages";
+
         public const string Subject_Polish = "Polish";
         public const string Subject_Maths = "Math";
         public const string Subjest_PE = "Pe";
