@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Edziennik.Utility;
 using Microsoft.EntityFrameworkCore;
 using Edziennik.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Edziennik.Areas.Teacher.Controllers
 {
     [Area("Teacher")]
+    [Authorize(Roles = SD.Role_Teacher)]
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext dbContext;

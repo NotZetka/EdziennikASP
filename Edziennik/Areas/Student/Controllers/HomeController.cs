@@ -1,11 +1,13 @@
 ﻿using Edziennik.Data;
 using Edziennik.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Edziennik.Areas.Student.Controllers
 {
     [Area("Student")]
+    [Authorize(Roles = SD.Role_Student)]
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext dbContext;
