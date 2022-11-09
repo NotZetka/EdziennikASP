@@ -51,6 +51,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Messages">@await Component.InvokeAsync("Messages")</a>
                         </li>
                         }
+                        @if (User.IsInRole(SD.Role_Admin)){
+                        <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Managing</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="AddStudent">Add Student</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="AddTeacher">Add Teacher</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="AddClass">Add Class</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="AddLesson">Add Lesson</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <partial name="_LoginPartial" />

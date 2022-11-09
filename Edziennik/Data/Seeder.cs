@@ -1,6 +1,7 @@
 ﻿using Edziennik.Data.Models;
 using Edziennik.Utility;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Edziennik.Data
 {
@@ -15,6 +16,13 @@ namespace Edziennik.Data
             this.dbContext = dbContext;
             this.roleManager = roleManager;
             this.userManager = userManager;
+        }
+        public void getMigrations()
+        {
+            if (dbContext.Database.GetPendingMigrations().Count() > 0)
+            {
+                dbContext.Database.Migrate();
+            }
         }
         public void seedRoles()
         {
@@ -118,9 +126,15 @@ namespace Edziennik.Data
                     FirstName = "Dominik",
                     SecondName = "Tuzimek"
                 }, "Test123.").GetAwaiter().GetResult();
+                userManager.CreateAsync(new ApplicationUser
+                {
+                    UserName = "Admin@Admin.pl",
+                    Email = "Admin@Admin.pl"
+                }, "Test123.").GetAwaiter().GetResult();
             }
+
         }
-        public void seedSchool()
+        public void seedUserRoles()
         {
             var student1 = dbContext.Students.Where(x => x.Email == "JanKowaslki@Student.pl").FirstOrDefault();
             userManager.AddToRoleAsync(student1, SD.Role_Student).GetAwaiter().GetResult();
@@ -142,6 +156,10 @@ namespace Edziennik.Data
 
             var teacher3 = dbContext.Teachers.Where(x => x.Email == "DominikTuzimek@Teacher.pl").FirstOrDefault();
             userManager.AddToRoleAsync(teacher3, SD.Role_Teacher).GetAwaiter().GetResult();
+
+
+            var admin = dbContext.ApplicationUsers.Where(x => x.Email == "Admin@Admin.pl").FirstOrDefault();
+            userManager.AddToRoleAsync(admin, SD.Role_Admin).GetAwaiter().GetResult();
             dbContext.SaveChanges();
         }
         public void seedLessons()

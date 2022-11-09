@@ -50,11 +50,12 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<Seeder>();
+    seeder.getMigrations();
     seeder.seedSubjects();
     seeder.seedRoles();
     seeder.seedClasses();
     seeder.seedUsers();
-    seeder.seedSchool();
+    seeder.seedUserRoles();
     seeder.seedLessons();
 }
 app.Run();
